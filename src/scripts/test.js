@@ -22,5 +22,4 @@ const config =
     ? ['--config', JSON.stringify(require('../config/jest.config'))]
     : []
 
-// eslint-disable-next-line jest/no-jest-import
 require('jest').run([...config, ...watch, ...args])

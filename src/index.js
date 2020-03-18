@@ -7,7 +7,7 @@ try {
     .split('.')
     .map(Number)
   shouldThrow =
-    require(`${process.cwd()}/package.json`).name === 'kcd-scripts' &&
+    require(`${process.cwd()}/package.json`).name === 'bappo-scripts' &&
     (major < 10 || (major === 10 && minor < 18))
 } catch (error) {
   // ignore
@@ -15,7 +15,7 @@ try {
 
 if (shouldThrow) {
   throw new Error(
-    'You must use Node version 10.18 or greater to run the scripts within kcd-scripts, because we dogfood the untranspiled version of the scripts.',
+    'You must use Node version 10.18 or greater to run the scripts within bappo-scripts, because we dogfood the untranspiled version of the scripts.',
   )
 }
 

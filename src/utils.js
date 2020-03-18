@@ -13,11 +13,11 @@ const {packageJson: pkg, path: pkgPath} = readPkgUp.sync({
 })
 const appDirectory = path.dirname(pkgPath)
 
-function resolveKcdScripts() {
-  if (pkg.name === 'kcd-scripts') {
+function resolveBappoScripts() {
+  if (pkg.name === 'bappo-scripts') {
     return require.resolve('./').replace(process.cwd(), '.')
   }
-  return resolveBin('kcd-scripts')
+  return resolveBin('bappo-scripts')
 }
 
 // eslint-disable-next-line complexity
@@ -177,7 +177,7 @@ module.exports = {
   parseEnv,
   pkg,
   resolveBin,
-  resolveKcdScripts,
+  resolveBappoScripts,
   uniq,
   writeExtraEntry,
 }

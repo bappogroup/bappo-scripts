@@ -20,7 +20,6 @@ cases(
     preCommit = 'false',
   }) => {
     // beforeEach
-    // eslint-disable-next-line jest/no-jest-import
     const {run: jestRunMock} = require('jest')
     const originalArgv = process.argv
     const prevCI = mockIsCI
