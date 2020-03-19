@@ -28,14 +28,14 @@ test('appDirectory is the dirname to the package.json', () => {
   expect(require('../utils').appDirectory).toBe(pkgPath)
 })
 
-test('resolveBappoScripts resolves to src/index.js when in the bappo-scripts package', () => {
-  mockPkg({package: {name: 'bappo-scripts'}})
+test('resolveBappoScripts resolves to src/index.js when in the @bappo/scripts package', () => {
+  mockPkg({package: {name: '@bappo/scripts'}})
   expect(require('../utils').resolveBappoScripts()).toBe(
     require.resolve('../').replace(process.cwd(), '.'),
   )
 })
 
-test('resolveBappoScripts resolves to bappo-scripts if not in the bappo-scripts package', () => {
+test('resolveBappoScripts resolves to bappo-scripts if not in the @bappo/scripts package', () => {
   mockPkg({package: {name: 'not-bappo-scripts'}})
   whichSyncMock.mockImplementationOnce(() => require.resolve('../'))
   expect(require('../utils').resolveBappoScripts()).toBe('bappo-scripts')

@@ -7,7 +7,7 @@ try {
     .split('.')
     .map(Number)
   shouldThrow =
-    require(`${process.cwd()}/package.json`).name === 'bappo-scripts' &&
+    require(`${process.cwd()}/package.json`).name === '@bappo/scripts' &&
     (major < 10 || (major === 10 && minor < 18))
 } catch (error) {
   // ignore

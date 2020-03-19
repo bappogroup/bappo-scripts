@@ -39,7 +39,7 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
 ```
-yarn add --dev bappo-scripts
+yarn add --dev @bappo/scripts
 ```
 
 ## Usage
@@ -69,7 +69,7 @@ So, if we were to do this for ESLint, you could create an `.eslintrc` with the
 contents of:
 
 ```
-{"extends": "./node_modules/bappo-scripts/eslint.js"}
+{"extends": "./node_modules/@bappo/scripts/eslint.js"}
 ```
 
 > Note: for now, you'll have to include an `.eslintignore` in your project until
@@ -78,13 +78,13 @@ contents of:
 Or, for `babel`, a `.babelrc` with:
 
 ```
-{"presets": ["bappo-scripts/babel"]}
+{"presets": ["@bappo/scripts/babel"]}
 ```
 
 Or, for `jest`:
 
 ```javascript
-const {jest: jestConfig} = require('bappo-scripts/config')
+const {jest: jestConfig} = require('@bappo/scripts/config')
 module.exports = Object.assign(jestConfig, {
   // your overrides here
 
@@ -113,8 +113,8 @@ MIT
   https://img.shields.io/codecov/c/github/bappogroup/bappo-scripts.svg?style=flat-square
 [coverage]: https://codecov.io/github/bappogroup/bappo-scripts
 [version-badge]:
-  https://img.shields.io/npm/v/bappo-scripts.svg?style=flat-square
+  https://img.shields.io/npm/v/@bappo/scripts.svg?style=flat-square
 [package]: https://www.npmjs.com/package/@bappo/scripts
 [license-badge]:
-  https://img.shields.io/npm/l/bappo-scripts.svg?style=flat-square
+  https://img.shields.io/npm/l/@bappo/scripts.svg?style=flat-square
 [license]: https://github.com/bappogroup/bappo-scripts/blob/master/LICENSE

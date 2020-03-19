@@ -14,7 +14,7 @@ const {packageJson: pkg, path: pkgPath} = readPkgUp.sync({
 const appDirectory = path.dirname(pkgPath)
 
 function resolveBappoScripts() {
-  if (pkg.name === 'bappo-scripts') {
+  if (pkg.name === '@bappo/scripts') {
     return require.resolve('./').replace(process.cwd(), '.')
   }
   return resolveBin('bappo-scripts')
