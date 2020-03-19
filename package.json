@@ -118,5 +118,8 @@
   "devDependencies": {
     "jest-in-case": "^1.0.2",
     "slash": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
