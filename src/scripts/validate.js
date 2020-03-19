@@ -21,7 +21,10 @@ const scripts = useDefaultScripts
       lint: preCommit ? null : ifScript('lint', 'npm run lint --silent'),
       test: preCommit
         ? null
-        : ifScript('test', 'npm run test --silent -- --coverage'),
+        : ifScript(
+            'test',
+            'npm run test --silent -- --coverage --passWithNoTests',
+          ),
       flow: ifScript('flow', 'npm run flow --silent'),
     }
   : validateScripts.split(',').reduce((scriptsToRun, name) => {
