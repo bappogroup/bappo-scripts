@@ -1,8 +1,9 @@
-import cases from 'jest-in-case'
-import {unquoteSerializer, winPathSerializer} from './helpers/serializers'
+import cases from 'jest-in-case';
 
-expect.addSnapshotSerializer(unquoteSerializer)
-expect.addSnapshotSerializer(winPathSerializer)
+import { unquoteSerializer, winPathSerializer } from './helpers/serializers';
+
+expect.addSnapshotSerializer(unquoteSerializer);
+expect.addSnapshotSerializer(winPathSerializer);
 
 cases(
   'pre-commit',
@@ -13,34 +14,34 @@ cases(
     hasFile = () => false,
   }) => {
     // beforeEach
-    const {sync: crossSpawnSyncMock} = require('cross-spawn')
-    const originalArgv = process.argv
-    const originalExit = process.exit
+    const { sync: crossSpawnSyncMock } = require('cross-spawn');
+    const originalArgv = process.argv;
+    const originalExit = process.exit;
     Object.assign(utils, {
       hasPkgProp,
       hasFile,
-      resolveBin: (modName, {executable = modName} = {}) => executable,
-    })
-    process.exit = jest.fn()
+      resolveBin: (modName, { executable = modName } = {}) => executable,
+    });
+    process.exit = jest.fn();
 
-    process.argv = ['node', '../pre-commit', ...args]
+    process.argv = ['node', '../pre-commit', ...args];
 
     try {
       // tests
-      require('../pre-commit')
-      expect(crossSpawnSyncMock).toHaveBeenCalledTimes(2)
-      const [firstCall, secondCall] = crossSpawnSyncMock.mock.calls
-      const [scriptOne, calledArgsOne] = firstCall
-      expect([scriptOne, ...calledArgsOne].join(' ')).toMatchSnapshot()
-      const [scriptTwo, calledArgsTwo] = secondCall
-      expect([scriptTwo, ...calledArgsTwo].join(' ')).toMatchSnapshot()
+      require('../pre-commit');
+      expect(crossSpawnSyncMock).toHaveBeenCalledTimes(2);
+      const [firstCall, secondCall] = crossSpawnSyncMock.mock.calls;
+      const [scriptOne, calledArgsOne] = firstCall;
+      expect([scriptOne, ...calledArgsOne].join(' ')).toMatchSnapshot();
+      const [scriptTwo, calledArgsTwo] = secondCall;
+      expect([scriptTwo, ...calledArgsTwo].join(' ')).toMatchSnapshot();
     } catch (error) {
-      throw error
+      throw error;
     } finally {
       // afterEach
-      process.exit = originalExit
-      process.argv = originalArgv
-      jest.resetModules()
+      process.exit = originalExit;
+      process.argv = originalArgv;
+      jest.resetModules();
     }
   },
   {
@@ -49,16 +50,16 @@ cases(
       args: ['--config', './custom-config.js'],
     },
     'does not use built-in config with .lintstagedrc file': {
-      hasFile: filename => filename === '.lintstagedrc',
+      hasFile: (filename) => filename === '.lintstagedrc',
     },
     'does not use built-in config with lint-staged.config.js file': {
-      hasFile: filename => filename === 'lint-staged.config.js',
+      hasFile: (filename) => filename === 'lint-staged.config.js',
     },
     'does not use built-in config with lint-staged pkg prop': {
-      hasPkgProp: prop => prop === 'lint-staged',
+      hasPkgProp: (prop) => prop === 'lint-staged',
     },
     'forwards args': {
       args: ['--verbose'],
     },
   },
-)
+);

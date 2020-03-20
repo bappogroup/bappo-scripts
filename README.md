@@ -84,7 +84,7 @@ Or, for `babel`, a `.babelrc` with:
 Or, for `jest`:
 
 ```javascript
-const {jest: jestConfig} = require('@bappo/scripts/config')
+const { jest: jestConfig } = require('@bappo/scripts/config');
 module.exports = Object.assign(jestConfig, {
   // your overrides here
 
@@ -92,7 +92,7 @@ module.exports = Object.assign(jestConfig, {
   transform: {
     '\\.(ts|tsx)$': '<rootDir>/node_modules/ts-jest/preprocessor.js',
   },
-})
+});
 ```
 
 > Note: `bappo-scripts` intentionally does not merge things for you when you
@@ -106,15 +106,11 @@ MIT
 
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]:
-  https://img.shields.io/travis/bappogroup/bappo-scripts.svg?style=flat-square
+[build-badge]: https://img.shields.io/travis/bappogroup/bappo-scripts.svg?style=flat-square
 [build]: https://travis-ci.org/bappogroup/bappo-scripts
-[coverage-badge]:
-  https://img.shields.io/codecov/c/github/bappogroup/bappo-scripts.svg?style=flat-square
+[coverage-badge]: https://img.shields.io/codecov/c/github/bappogroup/bappo-scripts.svg?style=flat-square
 [coverage]: https://codecov.io/github/bappogroup/bappo-scripts
-[version-badge]:
-  https://img.shields.io/npm/v/@bappo/scripts.svg?style=flat-square
+[version-badge]: https://img.shields.io/npm/v/@bappo/scripts.svg?style=flat-square
 [package]: https://www.npmjs.com/package/@bappo/scripts
-[license-badge]:
-  https://img.shields.io/npm/l/@bappo/scripts.svg?style=flat-square
+[license-badge]: https://img.shields.io/npm/l/@bappo/scripts.svg?style=flat-square
 [license]: https://github.com/bappogroup/bappo-scripts/blob/master/LICENSE

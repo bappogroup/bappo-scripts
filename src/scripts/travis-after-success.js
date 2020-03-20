@@ -1,47 +1,48 @@
-const spawn = require('cross-spawn')
+const spawn = require('cross-spawn');
 const {
   resolveBin,
   getConcurrentlyArgs,
   hasFile,
   pkg,
   parseEnv,
-} = require('../utils')
+} = require('../utils');
 
-const releaseBranches = ['master', 'next', 'next-major', 'beta', 'alpha']
+const releaseBranches = ['master', 'next', 'next-major', 'beta', 'alpha'];
 
 const autorelease =
   pkg.version === '0.0.0-semantically-released' &&
   parseEnv('TRAVIS', false) &&
   releaseBranches.includes(process.env.TRAVIS_BRANCH) &&
-  !parseEnv('TRAVIS_PULL_REQUEST', false)
+  !parseEnv('TRAVIS_PULL_REQUEST', false);
 
 if (autorelease) {
   // we only need deploy once for releases
-  console.log('installing and running travis-deploy-once')
+  console.log('installing and running travis-deploy-once');
   const deployOnceResults = spawn.sync('npx', ['travis-deploy-once@5'], {
     stdio: 'inherit',
-  })
+  });
   if (deployOnceResults.status === 0) {
-    runAfterSuccessScripts()
+    runAfterSuccessScripts();
   } else {
     console.log(
       'travis-deploy-once exited with a non-zero exit code',
       deployOnceResults.status,
-    )
-    process.exit(deployOnceResults.status)
+    );
+    process.exit(deployOnceResults.status);
   }
 } else {
-  runAfterSuccessScripts()
+  runAfterSuccessScripts();
 }
 
 // eslint-disable-next-line complexity
 function runAfterSuccessScripts() {
-  const reportCoverage = hasFile('coverage') && !parseEnv('SKIP_CODECOV', false)
+  const reportCoverage =
+    hasFile('coverage') && !parseEnv('SKIP_CODECOV', false);
 
   if (!autorelease && !reportCoverage) {
     console.log(
       'No need to autorelease or report coverage. Skipping travis-after-success script...',
-    )
+    );
   } else {
     const result = spawn.sync(
       resolveBin('concurrently'),
@@ -54,11 +55,11 @@ function runAfterSuccessScripts() {
             ? `echo installing semantic-release && npx -p semantic-release@17 -c 'echo running semantic-release && semantic-release'`
             : null,
         },
-        {killOthers: false},
+        { killOthers: false },
       ),
-      {stdio: 'inherit'},
-    )
+      { stdio: 'inherit' },
+    );
 
-    process.exit(result.status)
+    process.exit(result.status);
   }
 }

@@ -1,7 +1,8 @@
-import cases from 'jest-in-case'
-import {unquoteSerializer} from './helpers/serializers'
+import cases from 'jest-in-case';
 
-expect.addSnapshotSerializer(unquoteSerializer)
+import { unquoteSerializer } from './helpers/serializers';
+
+expect.addSnapshotSerializer(unquoteSerializer);
 
 cases(
   'travis-after-success',
@@ -16,40 +17,40 @@ cases(
     },
   }) => {
     // beforeEach
-    const {sync: crossSpawnSyncMock} = require('cross-spawn')
-    const utils = require('../../utils')
-    utils.resolveBin = (modName, {executable = modName} = {}) => executable
-    const originalEnvs = Object.keys(env).map(envKey => {
-      const orig = process.env[envKey]
-      process.env[envKey] = env[envKey]
-      return orig
-    })
-    const originalLog = console.log
-    const originalExit = process.exit
-    process.exit = jest.fn()
-    console.log = jest.fn()
+    const { sync: crossSpawnSyncMock } = require('cross-spawn');
+    const utils = require('../../utils');
+    utils.resolveBin = (modName, { executable = modName } = {}) => executable;
+    const originalEnvs = Object.keys(env).map((envKey) => {
+      const orig = process.env[envKey];
+      process.env[envKey] = env[envKey];
+      return orig;
+    });
+    const originalLog = console.log;
+    const originalExit = process.exit;
+    process.exit = jest.fn();
+    console.log = jest.fn();
 
     // tests
     if (version) {
-      utils.pkg.version = version
+      utils.pkg.version = version;
     }
-    utils.hasFile = () => hasCoverageDir
-    process.env.SKIP_CODECOV = isOptedOutOfCoverage
-    require('../travis-after-success')
+    utils.hasFile = () => hasCoverageDir;
+    process.env.SKIP_CODECOV = isOptedOutOfCoverage;
+    require('../travis-after-success');
 
-    expect(console.log.mock.calls).toMatchSnapshot()
+    expect(console.log.mock.calls).toMatchSnapshot();
     const commands = crossSpawnSyncMock.mock.calls.map(
-      call => `${call[0]} ${call[1].join(' ')}`,
-    )
-    expect(commands).toMatchSnapshot()
+      (call) => `${call[0]} ${call[1].join(' ')}`,
+    );
+    expect(commands).toMatchSnapshot();
 
     // afterEach
-    process.exit = originalExit
-    console.log = originalLog
-    Object.keys(originalEnvs).forEach(envKey => {
-      process.env[envKey] = env[envKey]
-    })
-    jest.resetModules()
+    process.exit = originalExit;
+    console.log = originalLog;
+    Object.keys(originalEnvs).forEach((envKey) => {
+      process.env[envKey] = env[envKey];
+    });
+    jest.resetModules();
   },
   {
     'calls concurrently with both scripts when on travis': {},
@@ -74,4 +75,4 @@ cases(
       version: '1.2.3',
     },
   },
-)
+);

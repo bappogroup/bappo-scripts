@@ -1,7 +1,7 @@
-const {resolveBappoScripts, resolveBin} = require('../utils')
+const { resolveBappoScripts, resolveBin } = require('../utils');
 
-const bappoScripts = resolveBappoScripts()
-const doctoc = resolveBin('doctoc')
+const bappoScripts = resolveBappoScripts();
+const doctoc = resolveBin('doctoc');
 
 module.exports = {
   'README.md': [`${doctoc} --maxlevel 3 --notitle`],
@@ -10,4 +10,4 @@ module.exports = {
     `${bappoScripts} lint`,
     `${bappoScripts} test --findRelatedTests`,
   ],
-}
+};
