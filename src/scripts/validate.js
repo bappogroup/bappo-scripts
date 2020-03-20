@@ -32,10 +32,15 @@ const scripts = useDefaultScripts
       return scriptsToRun;
     }, {});
 
-const result = spawn.sync(
-  resolveBin('concurrently'),
-  getConcurrentlyArgs(scripts),
-  { stdio: 'inherit' },
-);
+if (Object.values(scripts).every((script) => script == null)) {
+  // No scripts to run, exit without error
+  process.exit(0);
+} else {
+  const result = spawn.sync(
+    resolveBin('concurrently'),
+    getConcurrentlyArgs(scripts),
+    { stdio: 'inherit' },
+  );
 
-process.exit(result.status);
+  process.exit(result.status);
+}

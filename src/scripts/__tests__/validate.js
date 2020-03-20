@@ -62,6 +62,37 @@ cases(
   },
 );
 
+test('does not run when there is no build or flow scripts in pre-commit', () => {
+  // beforeEach
+  const { sync: crossSpawnSyncMock } = require('cross-spawn');
+  const originalExit = process.exit;
+  process.exit = jest.fn();
+  process.env['SCRIPTS_PRE-COMMIT'] = 'false';
+  const teardown = withDefaultSetup(() => {
+    const previousVal = process.env['SCRIPTS_PRE-COMMIT'];
+    process.env['SCRIPTS_PRE-COMMIT'] = 'true';
+    const teardownScripts = setupWithScripts(['test', 'lint'])();
+    return function teardown() {
+      process.env['SCRIPTS_PRE-COMMIT'] = previousVal;
+      teardownScripts();
+    };
+  })();
+
+  try {
+    // tests
+    require('../validate');
+    expect(crossSpawnSyncMock).not.toHaveBeenCalled();
+  } catch (error) {
+    throw error;
+  } finally {
+    teardown();
+  }
+
+  // afterEach
+  process.exit = originalExit;
+  jest.resetModules();
+});
+
 function setupWithScripts(scripts = ['test', 'lint', 'build', 'flow']) {
   return function setup() {
     const utils = require('../../utils');
