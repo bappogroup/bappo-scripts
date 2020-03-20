@@ -75,6 +75,7 @@
     "eslint-plugin-react-hooks": "1.x",
     "glob": "^7.1.6",
     "husky": "^4.2.3",
+    "import-sort-style-module": "^6.0.0",
     "is-ci": "^2.0.0",
     "jest": "^25.1.0",
     "jest-watch-typeahead": "^0.4.2",
@@ -84,6 +85,7 @@
     "lodash.omit": "^4.5.0",
     "mkdirp": "^1.0.3",
     "prettier": "1.19.1",
+    "prettier-plugin-import-sort": "^0.0.3",
     "read-pkg-up": "^7.0.1",
     "resolve": "^1.15.1",
     "rimraf": "^3.0.2",
@@ -121,5 +123,11 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
+    }
   }
 }
