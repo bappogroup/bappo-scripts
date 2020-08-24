@@ -34,6 +34,7 @@ building, and more.
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Installation
+Requires node version >= 10.18
 
 This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
