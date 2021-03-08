@@ -13,18 +13,6 @@ const isWebpack = parseEnv('BUILD_WEBPACK', false);
 const treeshake = parseEnv('BUILD_TREESHAKE', isRollup || isWebpack);
 const alias = parseEnv('BUILD_ALIAS', isPreact ? { react: 'preact' } : null);
 
-const hasBabelRuntimeDep = Boolean(
-  pkg.dependencies && pkg.dependencies['@babel/runtime'],
-);
-const RUNTIME_HELPERS_WARN =
-  'You should add @babel/runtime as dependency to your package. It will allow reusing "babel helpers" from node_modules rather than bundling their copies into your files.';
-
-if (!treeshake && !hasBabelRuntimeDep && !isTest) {
-  throw new Error(RUNTIME_HELPERS_WARN);
-} else if (treeshake && !isUMD && !hasBabelRuntimeDep) {
-  console.warn(RUNTIME_HELPERS_WARN);
-}
-
 /**
  * use the strategy declared by browserslist to load browsers configuration.
  * fallback to the default if don't found custom configuration
